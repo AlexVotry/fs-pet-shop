@@ -92,7 +92,6 @@
         if (updateErr) {
           throw updateErr;
         }
-
         console.log(pet);
       });
     });
