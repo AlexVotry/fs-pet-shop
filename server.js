@@ -18,20 +18,21 @@ function handleRequest (req, res) {
     if (req.url === '/pets') {
     res.end(petsJSON);
     }
-    else if (route.match(petRegExp)){
-      petRegExp.test(route);
-      let index = RegExp['$+'];
-      res.end(pets[index]);
-    }
+    // else if (route.match(petRegExp)){
+    //   petRegExp.test(route);
+    //   let index = RegExp['$+'];
+    //   res.end(pets[index]);
+    // }
     else {
     res.end("404")
     }
   });
 }
+const port = process.env.PORT || 5000;
 
 var server = http.createServer(handleRequest);
 
-server.listen(5000, function() {
+server.listen(port, () => {
   console.log("Listening...")
 });
 
