@@ -1,4 +1,6 @@
 'use strict';
+
+
 (function subCommand() {
   const fs = require('fs');
   const path = require('path');
@@ -102,6 +104,7 @@
       }
       let pets = JSON.parse(data);
       const index = Number(process.argv[3]);
+
 
       if (!index) {
         console.error(`Usage: ${node} ${file} destroy INDEX`);

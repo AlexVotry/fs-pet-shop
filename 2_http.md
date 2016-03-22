@@ -32,7 +32,8 @@ Your task is to build a Node server application that handles the following HTTP 
 
 | Request Method | Request URL | Response Status | Response Content-Type | Response Body                                                                                              |
 |----------------|-------------|-----------------|-----------------------|------------------------------------------------------------------------------------------------------------|
-| `GET`          | `/pets`     | `200`           | `application/json`    | `[{ "age": 7, "kind": "rainbow", "name": "Lil Chris" }, { "age": 5, "kind": "snake", "name": "Buttons" }]` |
+| `GET`          | `/pets`     | `200`           | `application/json`  
+  | `[{ "age": 7, "kind": "rainbow", "name": "Lil Chris" }, { "age": 5, "kind": "snake", "name": "Buttons" }]` |
 | `GET`          | `/pets/0`   | `200`           | `application/json`    | `{ "age": 7, "kind": "rainbow", "name": "Lil Chris" }`                                                     |
 | `GET`          | `/pets/1`   | `200`           | `application/json`    | `{ "age": 5, "kind": "snake", "name": "Buttons" }`                                                         |
 | `GET`          | `/pets/2`   | `404`           | `text/plain`          | `Not found`                                                                                                |
