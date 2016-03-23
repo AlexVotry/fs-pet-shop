@@ -1,38 +1,46 @@
-
-const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const petsPath = path.join(__dirname, 'pets.json');
-const petRegExp = /^\/pets\/(.*)$/;
+const express = require('express');
+const app = express();
 
-function handleRequest(req, res) {
-  res.writeHead(200, { 'Content-Type': 'application/json' });
-  fs.readFile(petsPath, 'utf8', function petpath(err, data) {
+var readIt = function (callback) {
+  fs.readFile(petsPath, 'utf8', function (err, data) {
     if (err) {
       throw err;
     }
     const pets = JSON.parse(data);
-    const petsJSON = JSON.stringify(pets);
-    const route = req.url;
-
-    if (req.url === '/pets') {
-      res.end(petsJSON);
-    } else if (petRegExp.test(route)) {
-      const temp = route.match(petRegExp);
-      const index = Number(temp[1]);
-      const pet = JSON.stringify(pets[index]);
-      if (pet === undefined) {
-        res.end('Not Found');
-      } else {
-        res.end(pet);
-      }
-    } else res.end('404');
+    callback(pets);
   });
 }
+
+app.get('/pets', function (req, res) {
+  readIt(function(pets) {
+    const petsJSON = JSON.stringify(pets);
+    res.end(petsJSON);
+  });
+});
+
+app.get('/pets/:index', function (req, res) {
+  readIt(function(pets) {
+    var index = Number(req.params.index);
+    const pet = JSON.stringify(pets[index]);
+    if (pet === undefined) {
+      res.end('Not Found');
+    } else {
+        res.end(pet);
+      }
+    });
+  });
+
+
+app.get('/*', function (req, res) {
+  res.end('no dice');
+});
+
 const port = process.env.PORT || 5000;
 
-const server = http.createServer(handleRequest);
 
-server.listen(port, () => {
+app.listen(port, () => {
   console.log('Listening...');
 });
