@@ -24,8 +24,12 @@ function handleRequest (req, res) {
       let temp = route.match(petRegExp);
       let index = Number(temp[1]);
       let pet = JSON.stringify(pets[index]);
-      console.log(pet);
-      res.end(pet);
+      if (pet === undefined) {
+        console.log(pet);
+        res.end('Not Found');
+      } else {
+        res.end(pet);
+      }
     }
 
     else {
