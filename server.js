@@ -36,13 +36,3 @@ const server = http.createServer(handleRequest);
 server.listen(port, () => {
   console.log('Listening...');
 });
-
-
-// let pathArray = location.pathname.split( '/' );
-// let index= pathArray[1];
-// if (index)
-// else if (route.match(petRegExp)){
-//   petRegExp.test(route);
-//   let index = RegExp['$+'];
-//   res.end(pets[index]);
-// }
