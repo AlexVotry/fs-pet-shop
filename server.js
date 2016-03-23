@@ -15,14 +15,19 @@ function handleRequest (req, res) {
     let pets = JSON.parse(data);
     let petsJSON = JSON.stringify(pets);
     let route = req.url;
+
     if (req.url === '/pets') {
     res.end(petsJSON);
     }
-    // else if (route.match(petRegExp)){
-    //   petRegExp.test(route);
-    //   let index = RegExp['$+'];
-    //   res.end(pets[index]);
-    // }
+
+    else if (petRegExp.test(route)) {
+      let temp = route.match(petRegExp);
+      let index = Number(temp[1]);
+      let pet = JSON.stringify(pets[index]);
+      console.log(pet);
+      res.end(pet);
+    }
+
     else {
     res.end("404")
     }
@@ -30,18 +35,18 @@ function handleRequest (req, res) {
 }
 const port = process.env.PORT || 5000;
 
-var server = http.createServer(handleRequest);
+let server = http.createServer(handleRequest);
 
 server.listen(port, () => {
   console.log("Listening...")
 });
 
-// let indPet = pets.length;
-// for (let i = 0; i < pets.length; i++) {
-//   if (pets[i] === pets[indPet]) {
-//     foundPet = true;
-//   }
+
+// let pathArray = location.pathname.split( '/' );
+// let index= pathArray[1];
+// if (index)
+// else if (route.match(petRegExp)){
+//   petRegExp.test(route);
+//   let index = RegExp['$+'];
+//   res.end(pets[index]);
 // }
-// if (foundPet === true) {
-//     console.log(pets[indPet]);
-// let isPet
