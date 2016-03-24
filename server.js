@@ -33,13 +33,11 @@ app.get('/pets/:index', function (req, res) {
     });
   });
 
-
 app.get('/*', function (req, res) {
   res.end('no dice');
 });
 
 const port = process.env.PORT || 5000;
-
 
 app.listen(port, () => {
   console.log('Listening...');
