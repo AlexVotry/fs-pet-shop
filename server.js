@@ -20,11 +20,11 @@ const readIt = (callback) => {
     const pets = JSON.parse(data);
     callback(pets);
   });
-}
+};
 
 app.get('/pets', (req, res) => {
   readIt((pets) => {
-    const allPets = JSON.stringify(pets)
+    const allPets = JSON.stringify(pets);
     res.send(allPets);
   });
 });
@@ -34,12 +34,11 @@ app.get('/pets/:index', (req, res) => {
     const index = Number.parseInt(req.params.index);
     const pet = pets[index];
     if (!pet) {
-      return res.sendStatus(404); //not found
-    } else {
-      res.send(pet);
+      res.sendStatus(404); // not found
     }
-  })
-})
+    res.send(pet);
+  });
+});
 
 app.post('/pets/', (req, res) => {
   readIt((pets) => {
@@ -50,11 +49,11 @@ app.post('/pets/', (req, res) => {
     if (!newPet.age || !newPet.kind || !newPet.name) {
       res.sendStatus(400);
     }
-    pets.push({age, kind, name});
+    pets.push({ age, kind, name });
     const allPets = JSON.stringify(pets);
     res.send(allPets);
     fs.writeFile(petsPath, allPets, (writeFile) => {
-      if (writeErr) throw writeErr;
+      if (writeFile) throw writeFile;
     });
   });
 });
@@ -84,14 +83,18 @@ app.put('/pets/:index/:age/:kind/:name', (req, res) => {
     const age = Number(req.params.age);
     const kind = req.params.kind;
     const name = req.params.name;
-    const pet = {age, kind, name};
-    pets.splice(index, 1);
-    pets.splice(index, 0, pet);
-    const allPets = JSON.stringify(pets);
-    fs.writeFile(petsPath, allPets, (deleteErr) => {
-      if (deleteErr) throw deleteErr;
-    });
-    res.send(pet);
+    if (!index || !age || !kind || !name) {
+      res.sendStatus(400);
+    } else {
+      const pet = { age, kind, name };
+      pets.splice(index, 1);
+      pets.splice(index, 0, pet);
+      const allPets = JSON.stringify(pets);
+      fs.writeFile(petsPath, allPets, (deleteErr) => {
+        if (deleteErr) throw deleteErr;
+      });
+      res.send(pet);
+    }
   });
 });
 
@@ -102,12 +105,12 @@ app.delete('/pets/:index', (req, res) => {
     if (!pet) {
       res.sendStatus(404);
     } else {
-      const doggone = pets.splice(index, 1)[0];
+      const gone = pets.splice(index, 1)[0];
       const allPets = JSON.stringify(pets);
       fs.writeFile(petsPath, allPets, (deleteErr) => {
         if (deleteErr) throw deleteErr;
       });
-      res.send('You have deleted: ' + doggone);
+      res.send(gone);
     }
   });
 });
