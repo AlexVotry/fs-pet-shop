@@ -40,6 +40,10 @@ app.get('/pets/:index', (req, res) => {
   });
 });
 
+app.get('*', (req, res) => {
+  res.sendStatus(404);
+});
+
 app.post('/pets/', (req, res) => {
   readIt((pets) => {
     const newPet = req.body;
